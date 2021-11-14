@@ -1,6 +1,6 @@
 import { Box, Button, Container, Grid, Rating, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import UseFirebase from '../../Utilitis/Auth/UseFirebase';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -8,6 +8,7 @@ const PreviewPage = () => {
     const { id } = useParams()
     const [data, setData] = useState({})
     const { user } = UseFirebase()
+    const history = useHistory()
     const { productName, productprice, productRating, productStoct, postDate, spacification, discription, productColor, _id, productImg } = data
     let date = Date(postDate)
     // get single data 
@@ -17,17 +18,21 @@ const PreviewPage = () => {
             .then(item => setData(item))
     }, [id])
     const postToCart = (id) => {
-        delete data?._id
-        data['email'] = user.email
-        data['userName'] = user.displayName
-        data['cartDate'] = new Date().toDateString()
-        fetch(`http://localhost:27017/cart`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...data })
-        })
-            .then(res => res.json())
-            .then(item => item)
+        if (!user.uid) {
+            history.push('/login')
+        }else{
+            delete data?._id
+            data['email'] = user.email
+            data['userName'] = user.displayName
+            data['cartDate'] = new Date().toDateString()
+            fetch(`http://localhost:27017/cart`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...data })
+            })
+                .then(res => res.json())
+                .then(item => alert('Product added'))
+        }
     }
     return (
         <Container >

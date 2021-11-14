@@ -15,10 +15,13 @@ import NoPage from "./Pages/NoPage/NoPage";
 import UserReviewsPage from "./Pages/UserReviewsPage/UserReviewsPage";
 import { Grid } from "@mui/material";
 import './App.css';
+import PrivateRoute from "./Pages/SharedS/PrivateRoute";
+import AuthProvider from "./Utilitis/AuthProvider/AuthProvider";
 
 
 function App() {
   return (
+      <AuthProvider>
     <Router>
       <Navication></Navication>
       <Grid container justifyContent='flex-end'>
@@ -27,21 +30,21 @@ function App() {
             <Route exact path={'/'}><HomePage></HomePage></Route>
             <Route exact path={'/products'}><ProductsPage></ProductsPage></Route>
             <Route path={'/login'}><Login></Login></Route>
-            <Route path={'/addproduct'}><AddProduct></AddProduct></Route>
             <Route path={'/registration'}><Registration></Registration></Route>
             <Route path={'/products/:id'}><PreviewPage></PreviewPage></Route>
-            <Route path={'/manageproducts'}><ManageProducts></ManageProducts></Route>
-            <Route path={'/userreviews'}><UserReviewsPage></UserReviewsPage></Route>
-            <Route path={'/managecart'}><ManageCart></ManageCart></Route>
-            <Route path={'/reviews'}><Reviews></Reviews></Route>
-            <Route path={'/pay'}><Pay></Pay></Route>
+            <PrivateRoute path={'/addproduct'}><AddProduct></AddProduct></PrivateRoute>
+            <PrivateRoute path={'/manageproducts'}><ManageProducts></ManageProducts></PrivateRoute>
+            <PrivateRoute path={'/userreviews'}><UserReviewsPage></UserReviewsPage></PrivateRoute>
+            <PrivateRoute path={'/managecart'}><ManageCart></ManageCart></PrivateRoute>
+            <PrivateRoute path={'/reviews'}><Reviews></Reviews></PrivateRoute>
+            <PrivateRoute path={'/pay'}><Pay></Pay></PrivateRoute>
             <Route path={'*'}><NoPage></NoPage></Route>
           </Switch>
           <Footer></Footer>
         </Grid>
       </Grid>
     </Router>
-
+      </AuthProvider>
   );
 }
 

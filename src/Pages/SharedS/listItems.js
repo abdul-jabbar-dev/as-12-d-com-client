@@ -14,7 +14,7 @@ import UseFirebase from '../../Utilitis/Auth/UseFirebase';
 import { Avatar, IconButton } from '@mui/material';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import DashboardIcon from '@mui/icons-material/Dashboard';import { fontWeight } from '@mui/system';
+import DashboardIcon from '@mui/icons-material/Dashboard';
  const MainListItems = () => {
   const { user, logoutUser } = UseFirebase()
   const activeStyle = {
