@@ -2,23 +2,36 @@ import { useEffect, useState } from 'react';
 import { getAuth, signInWithPopup, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import firebaseInit from './authInitializar';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 //firebase initialize
 firebaseInit()
 const auth = getAuth();
 const UseFirebase = () => {
-
+    const history = useHistory()
+    const [isAdmin, setIsAdmin] = useState(false)
     const [user, setUser] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const googleProvider = new GoogleAuthProvider();
+    //is user admin
+    useEffect(() => {
+        fetch(`https://d-com-aj.herokuapp.com/user/${user.email}`)
+            .then(res => res.json())
+            .then(data => setIsAdmin(data.admin))
+    }, [user.email])
+
+
+
     // login with google 
-    const loginWithGoogle = () => {
+    const loginWithGoogle = (redirect_uri) => {
         setIsLoading(true)
         signInWithPopup(auth, googleProvider)
             .then((result) => {
                 const user = result.user;
+                //save user in database
+                saveUser(user.email, user.displayName, 'PUT')
                 setUser(user)
-
+                history.push(redirect_uri);
             }).catch((error) => {
 
             }).finally(() => setIsLoading(false))
@@ -29,11 +42,31 @@ const UseFirebase = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+                //set user in state
                 setUser(user)
+                //save user in database
+                saveUser(email, displayName, 'POST')
+                console.log(email, displayName)
+                //update user display name
                 updateUser(displayName)
             })
             .catch((error) => {
             }).finally(() => setIsLoading(false))
+    }
+    //save user data in mongo
+    const saveUser = (email, displayName, crud) => {
+        const user = {
+            email,
+            displayName
+        }
+        fetch('https://d-com-aj.herokuapp.com/user', {
+            method: crud,
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
     }
     // login with email and password 
     const loginUser = (email, password) => {
@@ -73,8 +106,10 @@ const UseFirebase = () => {
             });
     }
 
+
     return {
         user,
+        isAdmin,
         setUser,
         createUser,
         loginUser,

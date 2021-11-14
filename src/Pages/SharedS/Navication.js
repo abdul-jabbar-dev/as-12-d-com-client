@@ -122,7 +122,7 @@ function NavicationContent() {
             </IconButton>
           </Toolbar>
           <Divider />
-          <MainListItems></MainListItems>
+          <MainListItems open={open}></MainListItems>
           <Divider />
         </Drawer>
         <Box

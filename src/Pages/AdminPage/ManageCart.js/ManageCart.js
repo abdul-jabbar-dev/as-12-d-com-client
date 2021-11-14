@@ -15,7 +15,7 @@ const ManageCart = () => {
     del && setTimeout(function () { setDel(false); }, 2000);
 
     useEffect(() => {
-        fetch('http://localhost:27017/cart')
+        fetch('https://d-com-aj.herokuapp.com/cart')
             .then(res => res.json())
             .then(data => {
                 setAllCart(data)
@@ -23,7 +23,7 @@ const ManageCart = () => {
             })
     }, [allCart])
     return (
-        <Container maxWidth={'xl'} sx={{ my: 15 }}>
+        <Container maxWidth={'xl'} sx={{ my: 5 }}>
             <Typography variant='h4'>Cart management</Typography> <br />
             <Typography textAlign={'end'} p={'0 6px 3px 0'}>Total racord: {allCart.length}</Typography>
             <TableContainer component={Paper} style={{

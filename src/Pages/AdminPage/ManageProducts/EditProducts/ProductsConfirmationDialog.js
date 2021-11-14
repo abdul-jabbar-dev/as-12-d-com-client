@@ -36,7 +36,7 @@ function ConfirmationDialogRaw({ row }) {
         event.preventDefault();
         let data = new FormData(event.currentTarget);
 
-        fetch('http://localhost:27017/products', {
+        fetch('https://d-com-aj.herokuapp.com/products', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

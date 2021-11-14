@@ -21,7 +21,7 @@ const Reviews = () => {
         is ? sure = window.confirm(`Are You Sure? You Want to Delete `) : sure = true
         if (sure) {
             setLoding(true)
-            fetch(`http://localhost:27017/cart/${id}`, {
+            fetch(`https://d-com-aj.herokuapp.com/cart/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -43,7 +43,7 @@ const Reviews = () => {
     loding && setTimeout(() => setLoding(false), 2000)
     const handleShip = (id, index, is, product) => {
 
-        fetch(`http://localhost:27017/cart/${id}`, {
+        fetch(`https://d-com-aj.herokuapp.com/cart/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ...product })
@@ -58,7 +58,7 @@ const Reviews = () => {
     }
     useEffect(() => {
 
-        fetch(`http://localhost:27017/cart?email=${user.email}`)
+        fetch(`https://d-com-aj.herokuapp.com/cart?email=${user.email}`)
             .then(res => res.json())
             .then(rece => {
 

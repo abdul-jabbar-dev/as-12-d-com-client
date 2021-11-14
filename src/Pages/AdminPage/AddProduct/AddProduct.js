@@ -23,7 +23,7 @@ const AddProduct = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         let data = new FormData(event.currentTarget);
-        fetch('http://localhost:27017/products', {
+        fetch('https://d-com-aj.herokuapp.com/products', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const AddProduct = () => {
 
     return (
         <React.Fragment>
-            <Container sx={{ mt: 15 }}>
+            <Container sx={{ my: 5 }}>
                 <Typography variant="h4" gutterBottom>
                     Add Products
                 </Typography>

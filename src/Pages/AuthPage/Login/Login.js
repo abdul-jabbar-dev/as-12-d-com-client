@@ -10,16 +10,24 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import UseFirebase from '../../../Utilitis/Auth/UseFirebase';
 import { Alert, CircularProgress } from '@mui/material';
 const theme = createTheme();
 
 const Login = () => {
     const [logSucc, setLogSucc] = useState(false)
-    const { loginWithGoogle, setUser, user, loginUser, setIsLoading, isLoading } = UseFirebase()
-    const history = useHistory()
-    user.uid && history.push('/')
+    const { loginWithGoogle, setUser,  loginUser, setIsLoading, isLoading } = UseFirebase()
+    // const history = useHistory()
+    // user.uid && history.push('/')
+
+
+    const location = useLocation();
+    const history = useHistory();
+    const redirect_uri = location.state?.from || '/';
+
+
+
     const handleSubmit = (event) => {
         const data = new FormData(event.currentTarget);
         loginUser(data.get('email'), data.get('password'))
@@ -27,12 +35,13 @@ const Login = () => {
                 setUser(res)
                 setIsLoading(false)
                 setLogSucc(true)
+                history.push(redirect_uri);
             })
         event.currentTarget.reset();
         event.preventDefault();
     };
     const handlerGoogle = () => {
-        loginWithGoogle()
+        loginWithGoogle(redirect_uri)
     }
     return (
         <ThemeProvider theme={theme}>

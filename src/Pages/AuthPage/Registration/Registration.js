@@ -4,7 +4,7 @@ import { Grid, Typography, Container, Box, Button, Avatar, CssBaseline, Circular
 import CreateIcon from '@mui/icons-material/Create';
 import GoogleIcon from '@mui/icons-material/Google';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import UseFirebase from '../../../Utilitis/Auth/UseFirebase';
 
 const theme = createTheme();
@@ -12,8 +12,10 @@ const Registration = () => {
 
     const { loginWithGoogle, user, createUser, isLoading } = UseFirebase()
     const [googleSucc, setGoogleSucc] = useState(false)
-    const history = useHistory()
-    user.uid && history.push('/')
+    const location = useLocation();
+    const history = useHistory();
+    const redirect_uri = location.state?.from || '/';
+
 
     const handlerGoogle = () => {
         loginWithGoogle(setGoogleSucc)
@@ -25,6 +27,8 @@ const Registration = () => {
         event.currentTarget.reset()
         event.preventDefault();
         user.uid && setGoogleSucc('Create')
+        history.push(redirect_uri);
+
     };
     return (
         <ThemeProvider theme={theme}>

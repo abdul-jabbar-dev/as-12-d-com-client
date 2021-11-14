@@ -5,14 +5,13 @@ import MobileStepper from '@mui/material/MobileStepper';
 import { autoPlay } from 'react-swipeable-views-utils';
 import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
 import { Avatar, Container, Rating, Typography } from '@mui/material';
-import { deepOrange } from '@mui/material/colors';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const HomeReviews = () => {
     const [reviews, setReviews] = useState([])
     useEffect(() => {
-        fetch('http://localhost:27017/userreview')
+        fetch('https://d-com-aj.herokuapp.com/userreview')
             .then(res => res.json())
             .then(data => setReviews(data))
     }, [])

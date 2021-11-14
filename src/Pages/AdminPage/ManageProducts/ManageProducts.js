@@ -16,7 +16,7 @@ const ManageProducts = () => {
     const [del, setDel] = useState(false)
     del && setTimeout(function () { setDel(false); }, 2000);
     useEffect(() => {
-        fetch('http://localhost:27017/products')
+        fetch('https://d-com-aj.herokuapp.com/products')
             .then(res => res.json())
             .then(data => {
                 setAllCart(data)
@@ -24,7 +24,7 @@ const ManageProducts = () => {
             })
     }, [allCart])
     return (
-        <Container maxWidth={'xl'} sx={{ my: 15 }}>
+        <Container maxWidth={'xl'} sx={{ my:5 }}>
             <Typography variant='h4'>Order management</Typography> <br />
             <Typography textAlign={'end'} p={'0 6px 3px 0'}>Total Products: {allCart.length}</Typography>
 
