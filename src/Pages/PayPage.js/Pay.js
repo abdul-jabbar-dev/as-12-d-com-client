@@ -8,7 +8,7 @@ const Pay = () => {
     return (
 
         <React.Fragment>
-            <Container sx={{ my: 15 }} maxWidth={'md'}>
+            <Container sx={{ mt: 15,mb:38 }} maxWidth={'md'}>
                 <Typography variant="h4" gutterBottom>
                     Payment method
                 </Typography>

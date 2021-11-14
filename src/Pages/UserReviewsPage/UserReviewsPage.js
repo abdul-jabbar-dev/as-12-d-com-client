@@ -37,6 +37,7 @@ const UserReviewsPage = () => {
     };
     return (
         <Container  sx={{my:15}} maxWidth={'md'}>
+            <Typography variant='h4' textAlign={'center'}>What you think about us &#x1F914; </Typography>
             <Box component="form" aria-required onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} >

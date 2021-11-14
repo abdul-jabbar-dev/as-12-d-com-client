@@ -4,7 +4,8 @@ import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 import { autoPlay } from 'react-swipeable-views-utils';
 import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
-import { Container, Rating, Typography } from '@mui/material';
+import { Avatar, Container, Rating, Typography } from '@mui/material';
+import { deepOrange } from '@mui/material/colors';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -50,7 +51,12 @@ const HomeReviews = () => {
 
                                     <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', flexDirection: 'column', width: '60%', height: '300%', padding: '10px', margin: '0 auto' }} >
                                         <Typography fontSize={'12px'} alignSelf={'end'} mb={1}>{new Date(step.reviewDate).toDateString()}</Typography>
-                                        <img style={{ borderRadius: '100%' }} width={'100px'} height={'100px'} src={step.userImg} alt={`Post By ${(step.userName).toUpperCase()}`} />
+                                        <Avatar
+                                            sx={{ bgcolor: 'ActiveCaption', width: '100px', height: '100px' }}
+                                            alt={step.userName}
+                                            src={step.userImg}
+                                        />
+                                        {/* <img style={{ borderRadius: '100%' }} width={'100px'} height={'100px'} src={step.userImg} alt={`Post By ${(step.userName).toUpperCase()}`} /> */}
                                         <Typography mt={1}>{(step.userName).toUpperCase()}</Typography>
                                         <Typography fontWeight={400} variant='subtitle2' mt={1}>{(step.userEmail)}</Typography>
                                         <Typography my={2} color={'#756E76'}>&#10077; {step.reviewDiscription} &#10078;</Typography>

@@ -85,9 +85,11 @@ const Login = () => {
                         <Grid alignItems={'center'} justifyContent='space-between' container>
 
                             <Grid item xs>
-                                <Link to={'/'} variant="body2">
-                                    Forgot password?
-                                </Link>
+                                <span onClick={handlerGoogle}>
+                                    <Avatar sx={{ m: 1, bgcolor: '#1976D2', cursor: 'pointer' }}>
+                                        <GoogleIcon />
+                                    </Avatar>
+                                </span>
                             </Grid>
                             <Grid item>
                                 <Link to={'/registration'} variant="body2">
@@ -95,11 +97,7 @@ const Login = () => {
                                 </Link>
                             </Grid>
                         </Grid>
-                        <span onClick={handlerGoogle}>
-                            <Avatar sx={{ m: 1, bgcolor: '#1976D2', cursor: 'pointer' }}>
-                                <GoogleIcon />
-                            </Avatar>
-                        </span>
+                       
                     </Box>
                     {
                         logSucc === true && <Alert severity="success">Login successfully </Alert>

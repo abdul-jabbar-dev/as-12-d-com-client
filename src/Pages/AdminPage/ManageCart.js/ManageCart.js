@@ -8,9 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Alert, Container, LinearProgress, Typography } from '@mui/material';
 import ManageCartTableRow from './ManageCartTableRow'
-
 const ManageCart = () => {
-
     const [loding, setLoding] = useState(true)
     const [allCart, setAllCart] = useState([])
     const [del, setDel] = useState(false)
@@ -27,6 +25,7 @@ const ManageCart = () => {
     return (
         <Container maxWidth={'xl'} sx={{ my: 15 }}>
             <Typography variant='h4'>Cart management</Typography> <br />
+            <Typography textAlign={'end'} p={'0 6px 3px 0'}>Total racord: {allCart.length}</Typography>
             <TableContainer component={Paper} style={{
                 resize: 'both', minWidth: '100%', maxWidth: '100%', height: '700px', overflow: 'scroll'
             }}>

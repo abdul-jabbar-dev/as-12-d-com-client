@@ -26,6 +26,8 @@ const ManageProducts = () => {
     return (
         <Container maxWidth={'xl'} sx={{ my: 15 }}>
             <Typography variant='h4'>Order management</Typography> <br />
+            <Typography textAlign={'end'} p={'0 6px 3px 0'}>Total Products: {allCart.length}</Typography>
+
             <TableContainer component={Paper}  style={{
                 resize: 'both', minWidth: '100%', maxWidth: '100%', height: '700px', overflow: 'scroll'
             }}>

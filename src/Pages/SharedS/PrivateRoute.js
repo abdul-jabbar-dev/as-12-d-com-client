@@ -6,6 +6,8 @@ import useAuth from '../../Utilitis/UseAuth';
 const PrivateRoute = ({ children, ...rest }) => {
     const { user, isLoading } = useAuth();
     console.log(useAuth);
+
+    console.log(isLoading)
     if (isLoading) { return < CircularProgress /> }
     return (
         <Route
@@ -17,7 +19,6 @@ const PrivateRoute = ({ children, ...rest }) => {
                     <Redirect
 
                         to={{
-
                             pathname: "/login",
                             state: { from: location }
                         }}

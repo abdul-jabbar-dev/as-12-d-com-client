@@ -89,7 +89,7 @@ const PreviewPage = () => {
                         <Typography display={'inline'} variant='h6' fontWeight={400}  >
                             Available Color : &nbsp;
                         </Typography >
-                        {productColor === 'Default' ? 'No color' : <Box width={'30px'} height={'30px'} bgcolor={productColor} borderRadius={30}></Box>}
+                        {productColor === 'Default' ? 'No color' : <Box width={'30px'} height={'30px'}  border={'3px solid lightGray'} bgcolor={productColor} borderRadius={30}></Box>}
                     </Box>
                     <Box mt={1}>
                         <Typography display={'inline'} variant='h6' fontWeight={400}  >
