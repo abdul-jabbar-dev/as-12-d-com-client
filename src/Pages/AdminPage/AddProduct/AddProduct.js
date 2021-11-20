@@ -11,9 +11,11 @@ const AddProduct = () => {
     const [ratingValue, setRatingValue] = useState(2);
     const [alignment, setAlignment] = useState('inStock');
     const [colorActive, setColorActive] = useState('noColor');
+    const [imgs,setImgs]=useState(null)
     const handleChange = (event, newAlignment) => {
         setAlignment(newAlignment);
     };
+    
     const colorActiveHandler = (event, newAlignment) => {
         if (newAlignment === 'noColor') {
             setHex('Default')
@@ -21,13 +23,15 @@ const AddProduct = () => {
         setColorActive(newAlignment);
     };
     const handleSubmit = (event) => {
+        console.log(imgs)
         event.preventDefault();
         let data = new FormData(event.currentTarget);
-        fetch('https://d-com-aj.herokuapp.com/products', {
+        fetch('http://localhost:27017/products', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
+                img:imgs
             }, body: JSON.stringify({
                 postDate: new Date(),
                 productName: data.get('productName'),
@@ -41,7 +45,7 @@ const AddProduct = () => {
                 productRating: ratingValue
             })
         }).then(res => {
-            
+
         })
         event.currentTarget.reset()
     };
@@ -73,16 +77,18 @@ const AddProduct = () => {
                                 fullWidth
                                 variant="standard"
                             />
+
                         </Grid>
                         <Grid item xs={12} sm={6}>
+                            <label style={{ color: 'GrayText' }} htmlFor="productImg">Add a product photo</label>
                             <TextField
                                 required
                                 id="productImg"
                                 name="productImg"
-                                label="Product Img Url"
                                 fullWidth
                                 type="url"
                                 variant="standard"
+                                
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>

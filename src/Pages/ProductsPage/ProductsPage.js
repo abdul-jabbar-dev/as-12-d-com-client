@@ -7,7 +7,8 @@ const ProductsPage = () => {
     const [products, setProducts] = useState([])
     useEffect(() => {
         setIsSpin(true)
-        fetch('https://d-com-aj.herokuapp.com/products')
+        fetch('http://localhost:27017/products')
+        //https://d-com-aj.herokuapp.com
             .then(res => res.json())
             .then(data => {
                 setProducts(data)

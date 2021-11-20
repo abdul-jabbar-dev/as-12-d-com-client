@@ -13,7 +13,7 @@ const PreviewPage = () => {
     let date = Date(postDate)
     // get single data 
     useEffect(() => {
-        fetch(`https://d-com-aj.herokuapp.com/products/${id}`)
+        fetch(`http://localhost:27017/products/${id}`)
             .then(res => res.json())
             .then(item => setData(item))
     }, [id])
@@ -25,7 +25,7 @@ const PreviewPage = () => {
             data['email'] = user.email
             data['userName'] = user.displayName
             data['cartDate'] = new Date().toDateString()
-            fetch(`https://d-com-aj.herokuapp.com/cart`, {
+            fetch(`http://localhost:27017/cart`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...data })

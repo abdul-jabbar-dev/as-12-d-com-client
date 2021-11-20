@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import React, { useEffect, useState } from 'react';
 import { Alert, Box, Button, Container, Grid } from '@mui/material';
 import UseFirebase from '../../Utilitis/Auth/UseFirebase';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Reviews = () => {
     const { user } = UseFirebase()
@@ -13,15 +14,15 @@ const Reviews = () => {
     const [cart, setCart] = useState([])
     const [isProductDone, setIsProductDone] = useState(false)
     const [loding, setLoding] = useState(false)
+    const history = useHistory()
     let sum = 0
 
     const deletItem = (id, index, is) => {
-
         let sure;
         is ? sure = window.confirm(`Are You Sure? You Want to Delete `) : sure = true
         if (sure) {
             setLoding(true)
-            fetch(`https://d-com-aj.herokuapp.com/cart/${id}`, {
+            fetch(`http://localhost:27017/cart/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -43,22 +44,27 @@ const Reviews = () => {
     loding && setTimeout(() => setLoding(false), 2000)
     const handleShip = (id, index, is, product) => {
 
-        fetch(`https://d-com-aj.herokuapp.com/cart/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...product })
-        })
-            .then(res => res.json())
-            .then(rece => {
-                setIsProductDone(true)
-                setPoke(!poke)
-            }).finally(e => e
-            )
+        history.push(`/pay/${id}`)
+
+
+
+
+        // fetch(`http://localhost:27017/cart/${id}`, {
+        //     method: 'PUT',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ ...product })
+        // })
+        //     .then(res => res.json())
+        //     .then(rece => {
+        //         setIsProductDone(true)
+        //         setPoke(!poke)
+        //     }).finally(e => e
+        //     )
         // deletItem(id, index, is)
     }
     useEffect(() => {
 
-        fetch(`https://d-com-aj.herokuapp.com/cart?email=${user.email}`)
+        fetch(`http://localhost:27017/cart?email=${user.email}`)
             .then(res => res.json())
             .then(rece => {
 
@@ -67,10 +73,10 @@ const Reviews = () => {
             }).finally(e => e
             )
     }, [poke, user])
-
+    console.log(cart);
     return (
         <React.Fragment>
-           
+
             <Container sx={{ my: 5 }}>
                 <Typography variant='h4' textAlign={'center'}>Processed order</Typography>
                 <Grid container xs={12} >
@@ -91,8 +97,11 @@ const Reviews = () => {
                                             <Button sx={{ mx: 3 }} size="small" color={'error'} variant='outlined'
                                                 onClick={() => deletItem(product._id, index, true)}>Delete</Button>
 
-                                            <Button sx={{ mx: 3 }} size="small" color={'success'} variant='outlined'
-                                                onClick={() => handleShip(product._id, index, false, product)}>shiped</Button>
+                                          {
+                                                product.orderState ? <Button sx={{ mx: 3 }} size="small" color={'success'} disabled variant='outlined'
+                                                    >Paid</Button> : <Button sx={{ mx: 3 }} size="small" color={'success'} variant='outlined'
+                                                    onClick={() => handleShip(product._id, index, false, product)}>shiped</Button>
+                                          }
                                         </ListItem>
                                     )
                                 })}
@@ -113,7 +122,7 @@ const Reviews = () => {
                     </Grid>
                     <br /><br />
                     {isProductDone === true ? <Alert severity="success">Order Confirmed....</Alert> : ''}
-                    {loding === true ? <Alert severity="success">Order Delete successfully</Alert> : ''}
+                     {loding === true ? <Alert severity="success">Order Delete successfully</Alert> : ''}
 
                 </Grid >
             </Container>

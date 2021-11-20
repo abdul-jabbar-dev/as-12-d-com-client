@@ -6,6 +6,7 @@ import TopBannar from '../TopBannar/TopBannar';
 
 const HomePage = () => {
     return (
+        
         <div>
             <TopBannar></TopBannar>
           

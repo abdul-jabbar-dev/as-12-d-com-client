@@ -8,7 +8,7 @@ const ManageCartTableRow = ({ allCart, setAllCart, del, setDel, data, index }) =
     const handleDelete = (id, index) => {
         const sure = window.confirm(`Are You Sure? You Want to Delete `)
         if (sure) {
-            fetch(`https://d-com-aj.herokuapp.com/products/${id}`, {
+            fetch(`http://localhost:27017/products/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

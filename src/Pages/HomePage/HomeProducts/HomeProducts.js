@@ -8,7 +8,7 @@ const HomeProducts = () => {
 
     useEffect(() => {
         setIsSpin(true)
-        fetch('https://d-com-aj.herokuapp.com/products?items=6')
+        fetch('http://localhost:27017/products?items=6')
             .then(res => res.json())
             .then(data => {
                 setProducts(data)

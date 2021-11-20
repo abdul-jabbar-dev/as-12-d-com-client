@@ -1,65 +1,36 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-
+import React, { useEffect, useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
 import { Container } from '@mui/material';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import CheckoutForm from './CheckoutForm';
+import { Elements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe('pk_test_51JwXO7Ez5fvmGZeQOGbuXEZTjvlXRI4cZJ3jS0h6kgoMcAG1YrI2GVTeMBiwpgwbxX9ebr4YPJwrUJJpeunIRT1K00xQiQSMYm');
 const Pay = () => {
+    
+    const [data, setData] = useState({})
+    const { id } = useParams()
+    useEffect(() => {
+        fetch(`http://localhost:27017/cart/${id}`)
+            .then(res => res.json())
+            .then(item => setData(item))
+    }, [id])
+
+
     return (
 
         <React.Fragment>
-            <Container sx={{ mt: 15,mb:38 }} maxWidth={'md'}>
-                <Typography variant="h4" gutterBottom>
-                    Payment method
-                </Typography>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} md={6}>
-                        <TextField
-                            disabled
-                            required
-                            id="cardName"
-                            label="Name on card"
-                            fullWidth
-                            autoComplete="cc-name"
-                            variant="standard"
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <TextField
-                            disabled
-                            required
-                            id="cardNumber"
-                            label="Card number"
-                            fullWidth
-                            autoComplete="cc-number"
-                            variant="standard"
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <TextField
-                            disabled
-                            required
-                            id="expDate"
-                            label="Expiry date"
-                            fullWidth
-                            autoComplete="cc-exp"
-                            variant="standard"
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <TextField
-                            disabled
-                            required
-                            id="cvv"
-                            label="CVV"
-                            helperText="Last three digits on signature strip"
-                            fullWidth
-                            autoComplete="cc-csc"
-                            variant="standard"
-                        />
-                    </Grid>
-                </Grid>
-                <Typography textAlign={'center'} color={'#9E9ED0'} variant='h4'>Coming soon</Typography>
+            <Container sx={{ mt: 15, mb: 38 }} maxWidth={'md'}>
+                <h2>Hi : {data.userName}</h2>
+                <h3>Product: {data.productName}</h3>
+                <h4>Price: {data.productprice}</h4>
+                <h6 style={{color:'gray'}}>dummy card:     4242424242424242    visa</h6>
+
+               {
+                    data.productprice && <Elements stripe={stripePromise}>
+                        <CheckoutForm data={data} />
+                    </Elements>
+               }
             </Container>
         </React.Fragment>
     );

@@ -16,7 +16,7 @@ const ManageProducts = () => {
     const [del, setDel] = useState(false)
     del && setTimeout(function () { setDel(false); }, 2000);
     useEffect(() => {
-        fetch('https://d-com-aj.herokuapp.com/products')
+        fetch('http://localhost:27017/products')
             .then(res => res.json())
             .then(data => {
                 setAllCart(data)

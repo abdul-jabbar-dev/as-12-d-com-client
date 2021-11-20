@@ -7,7 +7,7 @@ const AddAdmin = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         let data = new FormData(event.currentTarget);
-        fetch('https://d-com-aj.herokuapp.com/user/admin', {
+        fetch('http://localhost:27017/user/admin', {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

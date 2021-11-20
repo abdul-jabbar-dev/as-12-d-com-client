@@ -11,7 +11,7 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const HomeReviews = () => {
     const [reviews, setReviews] = useState([])
     useEffect(() => {
-        fetch('https://d-com-aj.herokuapp.com/userreview')
+        fetch('http://localhost:27017/userreview')
             .then(res => res.json())
             .then(data => setReviews(data))
     }, [])
