@@ -15,7 +15,7 @@ const UseFirebase = () => {
     const googleProvider = new GoogleAuthProvider();
     //is user admin
     useEffect(() => {
-        fetch(`http://localhost:27017/user/${user.email}`)
+        fetch(`https://d-com-aj.herokuapp.com/user/${user.email}`)
             .then(res => res.json())
             .then(data => setIsAdmin(data.admin))
     }, [user.email])
@@ -59,7 +59,7 @@ const UseFirebase = () => {
             email,
             displayName
         }
-        fetch('http://localhost:27017/user', {
+        fetch('https://d-com-aj.herokuapp.com/user', {
             method: crud,
             headers: {
                 'content-type': 'application/json'

@@ -11,7 +11,7 @@ const Pay = () => {
     const [data, setData] = useState({})
     const { id } = useParams()
     useEffect(() => {
-        fetch(`http://localhost:27017/cart/${id}`)
+        fetch(`https://d-com-aj.herokuapp.com/cart/${id}`)
             .then(res => res.json())
             .then(item => setData(item))
     }, [id])

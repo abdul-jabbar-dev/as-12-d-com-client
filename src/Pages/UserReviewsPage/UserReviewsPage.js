@@ -14,7 +14,7 @@ const UserReviewsPage = () => {
         if (!data.get('discription').length > 0) {
             alert(`The minimum length for "Discription" is 30 or character`)
         } else {
-            fetch('http://localhost:27017/userreview', {
+            fetch('https://d-com-aj.herokuapp.com/userreview', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

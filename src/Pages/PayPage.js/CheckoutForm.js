@@ -11,7 +11,7 @@ const CheckoutForm = ({ data }) => {
     const product = data
 
     useEffect(() => {
-        fetch('http://localhost:27017/create-payment-intent', {
+        fetch('https://d-com-aj.herokuapp.com/create-payment-intent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -23,7 +23,7 @@ const CheckoutForm = ({ data }) => {
     }, [product.productprice])
     const updateProduct = (payment) => {
         product['paymentIntent'] = payment
-        fetch(`http://localhost:27017/cart/${product._id}`, {
+        fetch(`https://d-com-aj.herokuapp.com/cart/${product._id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(product)
